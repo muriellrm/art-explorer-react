@@ -1,0 +1,102 @@
+import { useState } from "react";
+import {
+  Box,
+  Center,
+  Heading,
+  IconButton,
+  Image,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { Heart, HeartPlus } from "lucide-react";
+
+interface IProps {
+  imageSrc: string;
+  author: string;
+  title: string;
+}
+
+export const Card: React.FC<IProps> = ({ imageSrc, author, title }) => {
+  const [checked, setChecked] = useState<boolean>(false);
+
+  return (
+    <Center py={12}>
+      <Box
+        role={"group"}
+        p={6}
+        maxW={"330px"}
+        w={"full"}
+        bg={useColorModeValue("white", "gray.800")}
+        boxShadow={"2xl"}
+        rounded={"lg"}
+        pos={"relative"}
+        zIndex={1}
+      >
+        <Box
+          rounded={"lg"}
+          mt={-12}
+          pos={"relative"}
+          height={"230px"}
+          _after={{
+            transition: "all .3s ease",
+            content: '""',
+            w: "full",
+            h: "full",
+            pos: "absolute",
+            top: 5,
+            left: 0,
+            backgroundImage: `url(${imageSrc})`,
+            filter: "blur(15px)",
+            zIndex: -1,
+          }}
+          _groupHover={{
+            _after: {
+              filter: "blur(20px)",
+            },
+          }}
+        >
+          <Image
+            rounded={"lg"}
+            height={230}
+            width={282}
+            src={imageSrc}
+            alt="#"
+          />
+        </Box>
+        <Stack pt={10} align={"center"}>
+          <Text
+            color={"gray.500"}
+            fontSize={"sm"}            
+            children={author}
+          />
+          <Heading
+            fontSize={"2xl"}
+            fontFamily={"body"}
+            fontWeight={500}
+            children={title}
+          />
+        </Stack>
+        <Stack pt={2} align={"center"}>
+          <IconButton
+            aria-label="favorite art"
+            onClick={() => setChecked((value) => !value)}
+            bg="gray.50"
+            borderRadius={"50%"}
+            icon={
+              !checked ? (
+                <HeartPlus />
+              ) : (
+                <Heart fill="red" color="red" />
+              )
+            }
+            boxShadow="0px 1px 2px rgba(0, 0, 0, 1)"
+            _hover={{
+              boxShadow: "0px 1px 5px rgba(0, 0, 0, 1)",
+            }}
+          />
+        </Stack>
+      </Box>
+    </Center>
+  );
+};
