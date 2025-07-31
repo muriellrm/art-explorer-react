@@ -1,4 +1,4 @@
-export const Container = () => {
+export const Container = ({ children }: any) => {
   return (
     <div className="grid grid-cols-[100px_1fr] grid-rows-[100px_1fr] h-screen">
       <aside className="row-span-2 bg-gray-800 text-white p-4">
@@ -11,17 +11,15 @@ export const Container = () => {
       </aside>
 
       <div>
-        <header className="bg-blue-500 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-md shadow w-full mx-4">
+        <header className="flex items-center justify-center h-20 pt-4">
+          <div className="bg-gray-100 p-4 rounded-md shadow w-full mx-4">
             Pesquisar
           </div>
         </header>
 
-        <main className="bg-gray-100 p-4">
+        <main className="p-4">
           <h2 className="text-lg font-medium">Conteúdo principal aqui</h2>
-          <div className="mt-4 bg-white p-4 rounded-md shadow">
-            Este é o conteúdo do container.
-          </div>
+          <div className="bg-gray-100 p-4 rounded-md shadow">{children}</div>
         </main>
       </div>
     </div>

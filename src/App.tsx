@@ -1,15 +1,12 @@
-import { Container } from "./components/Container";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "./config/request";
+import AppRoutes from "./routes";
 
 function App() {
   return (
-    <>
-      {/* <Card
-        author="Muriel Mazuchetti"
-        imageSrc="https://i0.wp.com/clickmuseus.com.br/wp-content/uploads/2023/03/obra.png"
-        title="Obra de teste"
-      /> */}
-      <Container />
-    </>
+    <QueryClientProvider client={queryClient}>
+      <AppRoutes />
+    </QueryClientProvider>
   );
 }
 

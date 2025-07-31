@@ -25,13 +25,20 @@ export const Card: React.FC<IProps> = ({ imageSrc, author, title }) => {
       <Box
         role={"group"}
         p={6}
-        maxW={"330px"}
+        maxW={"285px"}
+        maxH={"400px"}
+        minH={"400px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
+        transition="all 0.3s ease-in-out"
+        _hover={{
+          transform: "scale(1.03)",
+          boxShadow: "3xl",
+        }}
       >
         <Box
           rounded={"lg"}
@@ -67,29 +74,28 @@ export const Card: React.FC<IProps> = ({ imageSrc, author, title }) => {
         <Stack pt={10} align={"center"}>
           <Text
             color={"gray.500"}
-            fontSize={"sm"}            
+            fontSize={"sm"}
             children={author}
+            isTruncated
+            maxW={"240px"}
+            title={author}
           />
           <Heading
-            fontSize={"2xl"}
+            className="w-60 overflow-hidden whitespace-nowrap text-ellipsis items-center text-center"            
+            fontSize={"large"}
             fontFamily={"body"}
             fontWeight={500}
             children={title}
+            title={title}
           />
         </Stack>
-        <Stack pt={2} align={"center"}>
+        <Stack pt={6} align={"center"}>
           <IconButton
             aria-label="favorite art"
             onClick={() => setChecked((value) => !value)}
             bg="gray.50"
             borderRadius={"50%"}
-            icon={
-              !checked ? (
-                <HeartPlus />
-              ) : (
-                <Heart fill="red" color="red" />
-              )
-            }
+            icon={!checked ? <HeartPlus /> : <Heart fill="red" color="red" />}
             boxShadow="0px 1px 2px rgba(0, 0, 0, 1)"
             _hover={{
               boxShadow: "0px 1px 5px rgba(0, 0, 0, 1)",
