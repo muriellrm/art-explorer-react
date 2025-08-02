@@ -1,6 +1,7 @@
 import { useGetArtworksDetails } from "#/hooks/use-get-artworks-details";
 import { useGetArtworksIds } from "#/hooks/use-get-artworks-ids";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const PAGE_SIZE = 15;
 export const useHome = () => {
@@ -18,11 +19,20 @@ export const useHome = () => {
   const artworks = artworkDetailsResult
     .map((result) => result.data)
     .filter(Boolean);
-  const isLoading = artworkDetailsResult.some((result) => result.isLoading);
+  const artworksLoading = artworkDetailsResult.some(
+    (result) => result.isLoading
+  );
+
+  const { ref: loadmoreRef, inView } = useInView({
+    threshold: 0.1,
+  });
+
+  const isLoading = artworksLoading || idsLoading;
+
 
   return {
     artworks,
-    isLoading: isLoading || idsLoading,
-    loadMoreArtworks: () => setPage((currentPage) => currentPage + 1),
+    isLoading,
+    loadmoreRef,
   };
 };

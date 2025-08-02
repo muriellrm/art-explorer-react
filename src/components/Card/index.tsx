@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Box,
   Center,
@@ -10,15 +9,19 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Heart, HeartPlus } from "lucide-react";
+import { useFavoriteArtStore } from "#/store/use-favorite-art-store";
+import type { Artwork } from "#/api/art-work/interface";
 
 interface IProps {
   imageSrc: string;
   author: string;
   title: string;
+  artwork: Artwork,
 }
 
-export const Card: React.FC<IProps> = ({ imageSrc, author, title }) => {
-  const [checked, setChecked] = useState<boolean>(false);
+export const Card: React.FC<IProps> = ({ imageSrc, author, title, artwork }) => {
+  const { isFavorite, toggleFavorite } =
+    useFavoriteArtStore();
 
   return (
     <Center py={12}>
@@ -81,7 +84,7 @@ export const Card: React.FC<IProps> = ({ imageSrc, author, title }) => {
             title={author}
           />
           <Heading
-            className="w-60 overflow-hidden whitespace-nowrap text-ellipsis items-center text-center"            
+            className="w-60 overflow-hidden whitespace-nowrap text-ellipsis items-center text-center"
             fontSize={"large"}
             fontFamily={"body"}
             fontWeight={500}
@@ -92,10 +95,10 @@ export const Card: React.FC<IProps> = ({ imageSrc, author, title }) => {
         <Stack pt={6} align={"center"}>
           <IconButton
             aria-label="favorite art"
-            onClick={() => setChecked((value) => !value)}
+            onClick={() => toggleFavorite(artwork)}
             bg="gray.50"
             borderRadius={"50%"}
-            icon={!checked ? <HeartPlus /> : <Heart fill="red" color="red" />}
+            icon={!isFavorite(artwork.objectID) ? <HeartPlus /> : <Heart fill="red" color="red" />}
             boxShadow="0px 1px 2px rgba(0, 0, 0, 1)"
             _hover={{
               boxShadow: "0px 1px 5px rgba(0, 0, 0, 1)",

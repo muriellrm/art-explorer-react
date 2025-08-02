@@ -1,23 +1,19 @@
 import { Card } from "#/components/Card";
 import { Container } from "#/components/Container";
 import { Loader } from "#/components/Loader";
+import { useFakeLoading } from "#/hooks/use-fake-loading";
+import { useFavoriteArtStore } from "#/store/use-favorite-art-store";
 import React from "react";
-import { useHome } from "./hooks";
 
-export const Home: React.FC = () => {
-  const { artworks, isLoading, loadmoreRef } = useHome();
-
+export const Favorites: React.FC = () => {
+  const { favoriteArtworks } = useFavoriteArtStore();
+  const { loading } = useFakeLoading();
   return (
     <Container>
-      <header className="fixed ml-22 top-0 left-0 right-0 flex items-center justify-center h-25 bg-white z-50">
-        <div className="bg-gray-100 p-4 rounded-md shadow w-full mx-4">
-          Pesquisar
-        </div>
-      </header>
-      <main className="bg-gray-100 m-4 p-4 rounded-md shadow ml-26 mt-25">
+      <main className="bg-gray-100 m-4 p-4 rounded-md shadow ml-26">
         <div className="flex justify-center items-start flex-wrap gap-y-0 gap-x-15">
-          {artworks?.length > 0
-            ? artworks.map((artwork) => (
+          {favoriteArtworks?.length > 0
+            ? favoriteArtworks.map((artwork) => (
                 <Card
                   key={artwork?.objectID}
                   artwork={artwork!}
@@ -31,10 +27,10 @@ export const Home: React.FC = () => {
                   title={artwork?.title || ""}
                 />
               ))
-            : "Sem itens para exibir"}
+            : "Sem itens salvo nos favoritos"}
         </div>
+        <Loader show={loading}/>
       </main>
-      <Loader show={isLoading} ref={loadmoreRef} />
     </Container>
   );
 };
