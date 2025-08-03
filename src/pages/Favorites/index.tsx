@@ -1,12 +1,13 @@
 import { Card } from "#/components/Card";
 import { Container } from "#/components/Container";
 import { Loader } from "#/components/Loader";
+import { ModalDetails } from "#/components/ModalDetail";
 import { useFakeLoading } from "#/hooks/use-fake-loading";
-import { useFavoriteArtStore } from "#/store/use-favorite-art-store";
+import { useFavoriteArtworkStore } from "#/store/use-favorite-artwork-store";
 import React from "react";
 
 export const Favorites: React.FC = () => {
-  const { favoriteArtworks } = useFavoriteArtStore();
+  const { favoriteArtworks } = useFavoriteArtworkStore();
   const { loading } = useFakeLoading();
   return (
     <Container>
@@ -29,7 +30,8 @@ export const Favorites: React.FC = () => {
               ))
             : "Sem itens salvo nos favoritos"}
         </div>
-        <Loader show={loading}/>
+        <Loader show={loading} />
+        <ModalDetails />
       </main>
     </Container>
   );

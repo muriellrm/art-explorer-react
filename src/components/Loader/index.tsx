@@ -1,16 +1,14 @@
 import { Box, Spinner } from "@chakra-ui/react";
-import { forwardRef } from "react";
 
 interface IProps {
   show: boolean;
 }
 
-export const Loader = forwardRef<HTMLDivElement, IProps>(({ show }, ref) => {
+export const Loader: React.FC<IProps> = ({ show }) => {
   if (!show) return <></>;
 
   return (
     <Box
-      ref={ref}
       className="flex items-center justify-center top-0 left-0"
       bg="blackAlpha.500"
       pos="fixed"
@@ -27,4 +25,4 @@ export const Loader = forwardRef<HTMLDivElement, IProps>(({ show }, ref) => {
       />
     </Box>
   );
-});
+};

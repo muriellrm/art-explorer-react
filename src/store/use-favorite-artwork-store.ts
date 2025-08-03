@@ -3,13 +3,13 @@ import { cloneDeep, findIndex, remove, uniqBy } from "lodash";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface FavoriteArtStore {
+interface FavoriteArtworkStore {
   favoriteArtworks: Artwork[];
   toggleFavorite: (art: Artwork) => void;
   isFavorite: (id: number) => boolean;
 }
 
-export const useFavoriteArtStore = create<FavoriteArtStore>()(
+export const useFavoriteArtworkStore = create<FavoriteArtworkStore>()(
   persist(
     (set, get) => ({
       favoriteArtworks: [],
