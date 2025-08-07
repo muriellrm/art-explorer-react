@@ -1,0 +1,29 @@
+name: Run Github CI
+
+on: [push]
+
+jobs:
+  run-github-ci:
+    name: Run Github CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Instalar dependências
+        run: pnpm install
+
+      - name: Verificar build do TypeScript
+        run: pnpm build
+
+      - name: Lint com ESLint
+        run: pnpm lint
+
+      - name: Rodar testes
+        run: pnpm test

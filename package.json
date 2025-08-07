@@ -9,8 +9,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
+  "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "@chakra-ui/react": "^2.10.9",
     "@emotion/react": "^11.14.0",
@@ -29,6 +32,7 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^7.7.1",
     "tailwindcss": "^4.1.11",
+    "vitest": "^3.2.4",
     "zod": "^4.0.15",
     "zustand": "^5.0.7"
   },
