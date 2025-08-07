@@ -1,12 +1,13 @@
 import { request } from "#/config/request";
+import type { SearchParams } from "#/pages/Home/resolver";
 import {
-  type SearchArtworks,
   type Artwork,
   type Departments,
+  type SearchArtworks,
 } from "./interface";
 
-export const artWorkService = {  
-  find: async (params?: any) =>
+export const artWorkService = {
+  find: async (params?: Omit<SearchParams, "searchType">) =>
     (await request.get<SearchArtworks>("search", { params })).data,
   findById: async (id: number) => {
     const url = `objects/${id}`;

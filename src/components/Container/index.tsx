@@ -13,38 +13,50 @@ export const Container = ({ children }: any) => {
         className="left-0 p-4 top-0 h-full flex flex-col justify-between"
         w={"80px"}
         position="fixed"
-        bg="#dfdfdf"
+        bg="white"
         borderRight={"1px"}
-        borderColor={"gray.500"}
+        borderColor={"gray.100"}
+        _dark={{
+          bg: "#303030"
+        }}
       >
         <VStack gap={5}>
           <Button
             onClick={() => navigate(PAGE.ROOT())}
-            bg="#dfdfdf"
+            border={"1px"}
+            borderColor={"gray.100"}
+            bg="white"
             p={0}
             width="60px"
             height="60px"
-            _hover={{ bg: "inherit" }}
+            _hover={{ bg: "gray.200" }}
           >
             <MyIcon width="100%" height="100%" />
           </Button>
           <Button
             onClick={() => navigate(PAGE.ROOT())}
             className="p-3"
-            bg={"#dfdfdf"}
+            bg="white"
+            _hover={{ bg: "gray.200" }}
           >
             <Home />
           </Button>
           <Button
             onClick={() => navigate(PAGE.FAVORITES())}
             className="p-3"
-            bg="#dfdfdf"
+            bg="white"
+            _hover={{ bg: "gray.200" }}
           >
             <Heart />
           </Button>
         </VStack>
         <VStack>
-          <Button onClick={toggleColorMode} className="p-3" bg={"#dfdfdf"}>
+          <Button
+            onClick={toggleColorMode}
+            className="p-3"
+            bg="white"
+            _hover={{ bg: "gray.200" }}
+          >
             {colorMode === "light" ? <SunMediumIcon /> : <MoonIcon />}
           </Button>
         </VStack>

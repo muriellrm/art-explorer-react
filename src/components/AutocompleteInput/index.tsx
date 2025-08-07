@@ -1,36 +1,47 @@
 import type { SelectOption } from "#/utils/interface";
 import {
-  Box,
+  Button,
+  FormControl,
+  FormErrorMessage,
   Input,
+  InputGroup,
+  InputRightElement,
   List,
   ListItem,
   Text,
   useOutsideClick,
 } from "@chakra-ui/react";
-import { useState, useRef, useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useController, type Control, type FieldErrors } from "react-hook-form";
 
 interface AutocompleteInput {
+  name: string;
+  control: Control<any>;
   dataOptions: SelectOption[];
   placeholder?: string;
-  onSelect: (value: string) => void;
+  onClickButton?: () => void;
+  errors?: FieldErrors;
 }
 
 export const AutocompleteInput: React.FC<AutocompleteInput> = ({
+  name,
+  control,
   dataOptions,
   placeholder = "Digite algo...",
-  onSelect,
+  onClickButton,
+  errors,
 }) => {
+  const { field } = useController({ name, control });
   const [showOptions, setShowOptions] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const filteredDataOptions = useMemo(
-    () =>
-      dataOptions.filter((s) =>
-        s.label.toLowerCase().includes(inputValue.toLowerCase())
-      ),
-    [dataOptions, inputValue]
-  );
-  const ref = useRef(null);
+  const [inputValueLabel, setInputValueLabel] = useState("");
 
+  const filteredDataOptions = useMemo(() => {
+    return dataOptions.filter((s) =>
+      s.label.toLowerCase().includes(inputValueLabel?.toLowerCase?.() || "")
+    );
+  }, [dataOptions, inputValueLabel]);
+
+  const ref = useRef(null);
   useOutsideClick({
     ref,
     handler: () => setShowOptions(false),
@@ -38,29 +49,49 @@ export const AutocompleteInput: React.FC<AutocompleteInput> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setInputValue(e.target.value);
+    setInputValueLabel(value);
     setShowOptions(value.trim() !== "");
   };
 
   const handleSelect = (item: SelectOption) => {
-    setInputValue(item.label);
+    setInputValueLabel(item.label);
+    field.onChange(item.value);
     setShowOptions(false);
-    onSelect(item?.value?.toString());
   };
 
   return (
-    <Box width="100%" ref={ref} display={"flex"} position="relative">
-      <Input
-        placeholder={placeholder}
-        value={inputValue}
-        onChange={handleChange}
-        mx={4}
-        height={"50px"}
-      />
+    <FormControl
+      isInvalid={!!errors?.[name]}
+      w={"100%"}
+      position={"relative"}
+      ref={ref}
+    >
+      <InputGroup size="lg">
+        <Input
+          placeholder={placeholder}
+          value={inputValueLabel}
+          onChange={handleChange}
+          onFocus={() => setShowOptions(true)}          
+        />
+        <InputRightElement width="200px">
+          <Button
+            h="full"
+            w={"full"}
+            size="lg"
+            borderTopLeftRadius="0"
+            borderBottomLeftRadius="0"
+            borderLeft={"1px"}
+            borderColor={"gray.200"}
+            onClick={onClickButton}
+          >
+            Pesquisar
+          </Button>
+        </InputRightElement>
+      </InputGroup>
+      <FormErrorMessage>{errors?.[name]?.message as string}</FormErrorMessage>
       {showOptions && filteredDataOptions.length > 0 && (
         <List
           position="absolute"
-          mx={4}
           mt={1}
           top="100%"
           left={0}
@@ -86,6 +117,6 @@ export const AutocompleteInput: React.FC<AutocompleteInput> = ({
           ))}
         </List>
       )}
-    </Box>
+    </FormControl>
   );
 };
