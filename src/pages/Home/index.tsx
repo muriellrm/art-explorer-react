@@ -8,18 +8,32 @@ import { DEFAULT_IMG_URL } from "./constants";
 import { useHome } from "./hooks";
 import { FormProvider } from "react-hook-form";
 import { Search } from "./components/Search";
+import { Box } from "@chakra-ui/react";
 
 export const Home: React.FC = () => {
   const { artworks, isLoading, loadmoreRef, methods, onSubmit } = useHome();
 
   return (
     <Container>
-      <header className="fixed ml-22 top-0 left-0 right-0 flex items-center justify-center h-55 bg-white z-50 overflow-visible">
+      {/* HEADER */}
+      <Box
+        as="header"
+        className="fixed ml-20 top-0 left-0 right-0 flex items-center justify-center h-55 bg-white z-50 overflow-visible"
+        _dark={{ bg: "gray.700" }}
+        transition="background-color 0.3s ease"
+      >
         <FormProvider {...methods}>
           <Search onSubmit={onSubmit} />
         </FormProvider>
-      </header>
-      <main className="bg-gray-100 m-4 p-4 rounded-md shadow ml-26 mt-55">
+      </Box>
+
+      {/* MAIN */}
+      <Box
+        as="main"
+        className="bg-gray-200 m-4 p-4 rounded-md shadow ml-26 mt-60"
+        _dark={{ bg: "gray.800" }}
+        transition="background-color 0.3s ease"
+      >
         <div className="flex justify-center items-start flex-wrap gap-y-0 gap-x-15">
           {artworks?.length > 0
             ? artworks.map((artwork) => (
@@ -35,7 +49,8 @@ export const Home: React.FC = () => {
               ))
             : "Sem itens para exibir"}
         </div>
-      </main>
+      </Box>
+
       <ModalDetails />
       <Loader show={isLoading} />
       <div ref={loadmoreRef} />

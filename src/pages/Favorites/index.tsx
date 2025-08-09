@@ -5,13 +5,20 @@ import { ModalDetails } from "#/components/ModalDetail";
 import { useFakeLoading } from "#/hooks/use-fake-loading";
 import { useFavoriteArtworkStore } from "#/store/use-favorite-artwork-store";
 import React from "react";
+import { Box } from "@chakra-ui/react";
 
 export const Favorites: React.FC = () => {
   const { favoriteArtworks } = useFavoriteArtworkStore();
   const { loading } = useFakeLoading();
+
   return (
     <Container>
-      <main className="bg-gray-100 m-4 p-4 rounded-md shadow ml-26">
+      <Box
+        as="main"
+        className="bg-gray-100 m-4 p-4 rounded-md shadow ml-26"
+        _dark={{ bg: "gray.800" }}
+        transition="background-color 0.3s ease"
+      >
         <div className="flex justify-center items-start flex-wrap gap-y-0 gap-x-15">
           {favoriteArtworks?.length > 0
             ? favoriteArtworks.map((artwork) => (
@@ -32,7 +39,7 @@ export const Favorites: React.FC = () => {
         </div>
         <Loader show={loading} />
         <ModalDetails />
-      </main>
+      </Box>
     </Container>
   );
 };

@@ -9,7 +9,6 @@ import {
   Image,
   Stack,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { Heart, HeartPlus } from "lucide-react";
 
@@ -38,12 +37,13 @@ export const Card: React.FC<IProps> = ({
         maxH={"400px"}
         minH={"400px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.800")}
+        bg="white"
+        _dark={{ bg: "gray.700" }}
         boxShadow={"2xl"}
         rounded={"lg"}
         pos={"relative"}
         zIndex={1}
-        transition="all 0.3s ease-in-out"
+        transition="background-color 0.3s ease, color 0.3s ease, transform 0.3s ease"
         _hover={{
           transform: "scale(1.03)",
           boxShadow: "3xl",
@@ -85,6 +85,7 @@ export const Card: React.FC<IProps> = ({
         <Stack pt={10} align={"center"}>
           <Text
             color={"gray.500"}
+            _dark={{ color: "gray.400" }}
             fontSize={"sm"}
             children={author}
             isTruncated
@@ -96,6 +97,8 @@ export const Card: React.FC<IProps> = ({
             fontSize={"large"}
             fontFamily={"body"}
             fontWeight={500}
+            color="black"
+            _dark={{ color: "white" }}
             children={title}
             title={title}
           />
@@ -105,6 +108,11 @@ export const Card: React.FC<IProps> = ({
             aria-label="favorite art"
             onClick={() => toggleFavorite(artwork)}
             bg="gray.50"
+            _dark={{
+              bg: "gray.600",
+              boxShadow: "0px 1px 2px rgba(255, 255, 255, 1)",
+              _hover: { boxShadow: "0px 1px 5px rgba(255, 255, 255, 1)" },
+            }}
             borderRadius={"50%"}
             icon={
               !isFavorite(artwork.objectID) ? (

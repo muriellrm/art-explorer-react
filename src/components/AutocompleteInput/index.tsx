@@ -71,7 +71,16 @@ export const AutocompleteInput: React.FC<AutocompleteInput> = ({
           placeholder={placeholder}
           value={inputValueLabel}
           onChange={handleChange}
-          onFocus={() => setShowOptions(true)}          
+          onFocus={() => setShowOptions(true)}
+          bg="white"
+          borderColor="gray.200"
+          transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
+          _dark={{
+            borderColor: "gray.900",
+            bg: "gray.500",
+            color: "white",
+            _placeholder: { color: "gray.900" },
+          }}
         />
         <InputRightElement width="200px">
           <Button
@@ -83,12 +92,20 @@ export const AutocompleteInput: React.FC<AutocompleteInput> = ({
             borderLeft={"1px"}
             borderColor={"gray.200"}
             onClick={onClickButton}
+            transition="background-color 0.3s ease, border-color 0.3s ease"
+            _dark={{
+              borderColor: "gray.900",
+              bg: "gray.600",
+              _hover: { bg: "gray.900" },
+              color: "white",
+            }}
           >
             Pesquisar
           </Button>
         </InputRightElement>
       </InputGroup>
       <FormErrorMessage>{errors?.[name]?.message as string}</FormErrorMessage>
+
       {showOptions && filteredDataOptions.length > 0 && (
         <List
           position="absolute"
@@ -103,6 +120,10 @@ export const AutocompleteInput: React.FC<AutocompleteInput> = ({
           maxH="200px"
           overflowY="auto"
           zIndex="dropdown"
+          _dark={{
+            bg: "gray.700",
+            borderColor: "gray.600",
+          }}
         >
           {filteredDataOptions.map((option) => (
             <ListItem
@@ -110,9 +131,12 @@ export const AutocompleteInput: React.FC<AutocompleteInput> = ({
               px={4}
               py={2}
               _hover={{ bg: "gray.100", cursor: "pointer" }}
+              _dark={{ _hover: { bg: "gray.600", cursor: "pointer" } }}
               onClick={() => handleSelect(option)}
             >
-              <Text>{option.label}</Text>
+              <Text color="black" _dark={{ color: "white" }}>
+                {option.label}
+              </Text>
             </ListItem>
           ))}
         </List>

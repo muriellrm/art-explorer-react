@@ -1,6 +1,5 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-
 import { AutocompleteInput } from "#/components/AutocompleteInput";
 import { useGetDepartments } from "#/hooks/use-get-departments";
 import type { SearchParams } from "#/pages/Home/resolver";
@@ -64,7 +63,14 @@ export const Search: React.FC<IProps> = ({ onSubmit }) => {
 
   return (
     <VStack spacing={5} className="flex w-full px-4">
-      <Heading fontSize="2xl" fontWeight="bold" alignSelf={"self-start"}>
+      <Heading
+        fontSize="2xl"
+        fontWeight="bold"
+        alignSelf={"self-start"}
+        color="gray.800"
+        _dark={{ color: "gray.100" }}
+        transition="color 0.3s ease"
+      >
         Pesquisar por obras de arte
         <Divider
           borderColor="green.400"
@@ -73,6 +79,7 @@ export const Search: React.FC<IProps> = ({ onSubmit }) => {
           my="4"
         />
       </Heading>
+
       {searchType === "departmentId" ? (
         <AutocompleteInput
           dataOptions={data || []}
@@ -92,6 +99,15 @@ export const Search: React.FC<IProps> = ({ onSubmit }) => {
                   ? "Busque por texto..."
                   : "Busque por artista ou cultura..."
               }
+              bg="white"
+              _dark={{
+                borderColor: "gray.900",
+                bg: "gray.500",
+                color: "white",
+                _placeholder: { color: "gray.900" },
+              }}
+              borderColor="gray.200"
+              transition="background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease"
             />
             <InputRightElement width="200px">
               <Button
@@ -102,7 +118,14 @@ export const Search: React.FC<IProps> = ({ onSubmit }) => {
                 borderBottomLeftRadius="0"
                 borderLeft="1px"
                 borderColor="gray.200"
+                _dark={{
+                  borderColor: "gray.900",
+                  bg: "gray.600",
+                  _hover: { bg: "gray.900" },
+                  color: "white",
+                }}
                 onClick={handleSubmit(onSubmit)}
+                transition="background-color 0.3s ease, border-color 0.3s ease"
               >
                 Pesquisar
               </Button>
@@ -111,6 +134,7 @@ export const Search: React.FC<IProps> = ({ onSubmit }) => {
           <FormErrorMessage>{errors.q?.message as string}</FormErrorMessage>
         </FormControl>
       )}
+
       <Controller
         control={control}
         name="searchType"
