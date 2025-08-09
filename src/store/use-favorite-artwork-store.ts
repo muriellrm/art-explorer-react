@@ -1,4 +1,5 @@
 import type { Artwork } from "#/api/art-work/interface";
+import { log } from "#/utils/logging";
 import { cloneDeep, findIndex, remove, uniqBy } from "lodash";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -20,8 +21,16 @@ export const useFavoriteArtworkStore = create<FavoriteArtworkStore>()(
           const updated = cloneDeep(state.favoriteArtworks);
 
           if (exists) {
+            log.info("Removendo artwork dos favoritos!", {
+              objectID: art.objectID,
+              action: "remove",
+            });
             remove(updated, (a) => a.objectID === art.objectID);
           } else {
+            log.info("Adicionando artwork nos favoritos!", {
+              objectID: art.objectID,
+              action: "add",
+            });
             updated.push(art);
           }
 
