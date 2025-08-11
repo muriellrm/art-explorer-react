@@ -12,13 +12,17 @@ Aplicação web responsiva, com o objetivo de explorar obras de arte da coleçã
 
 ## Preview
 
-### Home page
+### Home Page
 
 ![Art Explorer Home Preview](./.assets/home-page.png)
 
-### Favorites
+### Favoritos
 
 ![Art Explorer Favorites Preview](./.assets/favorites.png)
+
+### Detalhes da Obra
+
+![Art Explorer Favorites Dark Mode Preview](./.assets/artwork-details.png)
 
 ### Dark Mode
 
@@ -51,6 +55,9 @@ Necessário ter o node instalado na versão 18+. Recomendo a LTS que atualmente 
 VITE_APP_NAME= $(nome_de_sua_preferencia)
 VITE_APP_BASE_URL=https://collectionapi.metmuseum.org/public/collection/v1
 VITE_LOG_LEVEL= $(TRACE || DEBUG || INFO || WARN || ERROR)
+
+# Instalar o pnpm, caso não possua:
+npm install -g pnpm
 
 # Instalar dependências
 pnpm i
