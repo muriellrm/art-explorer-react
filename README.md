@@ -75,4 +75,4 @@ O log é criado no arquivo src/utils/logging/index.ts e nele podem nascer novas 
 
 
 ## Deploy na Vercel:
- - Aplicação está hospedada na vercel: [Link App](https://art-explorer-react-chi.vercel.app/)
+ - Aplicação está hospedada na vercel: [Link App](https://art-explorer-react-murielrm.vercel.app/)
