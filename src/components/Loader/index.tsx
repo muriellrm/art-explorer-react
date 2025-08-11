@@ -17,6 +17,7 @@ export const Loader: React.FC<IProps> = ({ show }) => {
       zIndex="modal"
     >
       <Spinner
+        data-testid="loader-spinner"
         thickness="4px"
         speed="0.65s"
         emptyColor="gray.200"

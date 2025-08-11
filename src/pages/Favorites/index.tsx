@@ -5,7 +5,7 @@ import { ModalDetails } from "#/components/ModalDetail";
 import { useFakeLoading } from "#/hooks/use-fake-loading";
 import { useFavoriteArtworkStore } from "#/store/use-favorite-artwork-store";
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Divider, Heading } from "@chakra-ui/react";
 
 export const Favorites: React.FC = () => {
   const { favoriteArtworks } = useFavoriteArtworkStore();
@@ -19,6 +19,23 @@ export const Favorites: React.FC = () => {
         _dark={{ bg: "gray.800" }}
         transition="background-color 0.3s ease"
       >
+        <Heading
+          fontSize="2xl"
+          fontWeight="bold"
+          alignSelf={"self-start"}
+          color="gray.800"
+          _dark={{ color: "gray.100" }}
+          transition="color 0.3s ease"
+          w={"fit-content"}
+        >
+          Obras favoritas
+          <Divider
+            borderColor="green.400"
+            borderWidth="2px"
+            borderRadius="full"
+            my="4"
+          />
+        </Heading>
         <div className="flex justify-center items-start flex-wrap gap-y-0 gap-x-15">
           {favoriteArtworks?.length > 0
             ? favoriteArtworks.map((artwork) => (

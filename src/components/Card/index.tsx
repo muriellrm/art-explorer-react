@@ -9,6 +9,7 @@ import {
   Image,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Heart, HeartPlus } from "lucide-react";
 
@@ -27,6 +28,7 @@ export const Card: React.FC<IProps> = ({
 }) => {
   const { isFavorite, toggleFavorite } = useFavoriteArtworkStore();
   const { onOpen } = useArtworkModalStore();
+  const toast = useToast();
 
   return (
     <Center py={12}>
@@ -106,7 +108,21 @@ export const Card: React.FC<IProps> = ({
         <Stack pt={6} align={"center"}>
           <IconButton
             aria-label="favorite art"
-            onClick={() => toggleFavorite(artwork)}
+            onClick={() => {
+              toggleFavorite(artwork);
+              const favorite = !isFavorite(artwork.objectID);
+              toast({
+                title: favorite
+                  ? "Removido dos favoritos!"
+                  : "Adicionado nos favoritos!",
+                description: favorite
+                  ? "A artwork foi removida da sua lista de favoritos."
+                  : "A artwork foi adicionada com sucesso à sua lista de favoritos.",
+                status: favorite ? "error" : "success",
+                duration: 3000,
+                isClosable: true,
+              });
+            }}
             bg="gray.50"
             _dark={{
               bg: "gray.600",

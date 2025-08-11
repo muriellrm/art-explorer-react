@@ -14,8 +14,7 @@ export const Home: React.FC = () => {
   const { artworks, isLoading, loadmoreRef, methods, onSubmit } = useHome();
 
   return (
-    <Container>
-      {/* HEADER */}
+    <Container>      
       <Box
         as="header"
         className="fixed ml-20 top-0 left-0 right-0 flex items-center justify-center h-55 bg-white z-50 overflow-visible"
@@ -25,9 +24,7 @@ export const Home: React.FC = () => {
         <FormProvider {...methods}>
           <Search onSubmit={onSubmit} />
         </FormProvider>
-      </Box>
-
-      {/* MAIN */}
+      </Box>      
       <Box
         as="main"
         className="bg-gray-200 m-4 p-4 rounded-md shadow ml-26 mt-60"
@@ -50,7 +47,6 @@ export const Home: React.FC = () => {
             : "Sem itens para exibir"}
         </div>
       </Box>
-
       <ModalDetails />
       <Loader show={isLoading} />
       <div ref={loadmoreRef} />
